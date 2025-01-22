@@ -1,6 +1,6 @@
 package json3
 
-import json3.Json.{JsonArray, JsonBoolean, JsonNull, JsonNumberDouble, JsonNumberInt, JsonObject, JsonString}
+import json3.Json.*
 
 trait JsonEncoder[A] {
   def encode(value: A): Json

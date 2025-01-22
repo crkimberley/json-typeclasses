@@ -1,6 +1,4 @@
-package json3
-
-import json3.Json.*
+package json2
 
 trait JsonDecoder[A] {
   def decode(json: Json): Either[String, A]

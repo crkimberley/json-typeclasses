@@ -2,10 +2,9 @@ package json3
 
 import com.typesafe.scalalogging.LazyLogging
 import json3.Json.{JsonArray, JsonBoolean, JsonNull, JsonNumberDouble, JsonNumberInt, JsonObject, JsonString}
-import json3.Util.toJsonText
 import org.scalatest.flatspec.AnyFlatSpec
 
-class JsonSpec extends AnyFlatSpec with LazyLogging {
+class Json3Spec extends AnyFlatSpec with LazyLogging {
 
   val map1 = Map(
     "name" -> "Bob",

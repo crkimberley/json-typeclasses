@@ -45,4 +45,4 @@ build/
 .DS_Store
 
 ### Scala ###
-.bsp/   
+.bsp/
