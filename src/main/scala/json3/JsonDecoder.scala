@@ -6,17 +6,6 @@ trait JsonDecoder[A] {
   def decode(json: Json): Either[String, A]
 }
 
-given [A](using decoder: JsonDecoder[A]): JsonDecoder[Map[String, A]] with
-  def decode(json: Json): Either[String, Map[String, A]] = json match {
-    case JsonObject(map) =>
-      map.foldLeft[Either[String, Map[String, A]]](Right(Map.empty[String, A])) {
-        case (Right(acc), (key, jsonValue)) =>
-          decoder.decode(jsonValue).map(decodedValue => acc + (key -> decodedValue))
-        case (Left(error), _) => Left(error)
-      }
-    case _ => Left(s"$json is not a JsonObject")
-  }
-
 given [A](using decoder: JsonDecoder[A]): JsonDecoder[Seq[A]] with
   def decode(json: Json): Either[String, Seq[A]] = json match {
     case JsonArray(elements) =>

@@ -54,7 +54,6 @@ class Json3Spec extends AnyFlatSpec with LazyLogging {
   }
 
   "Json" should "offer a correct text representation" in {
-
     val array1 = JsonArray(Seq(JsonNumberInt(1), JsonNumberInt(4), JsonNumberInt(7)))
     val string1 = JsonString("Some text")
     val int1 = JsonNumberInt(13)
@@ -93,10 +92,14 @@ class Json3Spec extends AnyFlatSpec with LazyLogging {
     assert(toJsonText(JsonNull) == JsonNull.toText)
   }
 
-  "JsonDecoder" should "decode all JSON types" in {
+  "JsonDecoder" should "decode JSON types" in {
+    val array1 = JsonArray(Seq(JsonNumberInt(3), JsonNumberInt(5)))
+
     assert(JsonString("hey").as[String] == Right("hey"))
     assert(JsonNumberInt(13).as[Int] == Right(13))
-
+    assert(JsonBoolean(true).as[Boolean].toOption.get)
+    assert(JsonNull.as[None.type].toOption.get.isEmpty)
+    assert(array1.as[Seq[Int]].toOption.get == Seq(3, 5))
   }
 
   "JsonDecoder" should "provide error messages when incorrect types are requested" in {

@@ -1,6 +1,6 @@
 package object json2 {
-  implicit class JsonUtils[A](value: A) {
-    def toJson(implicit encoder: JsonEncoder[A]): Json = encoder.encode(value)
+  implicit class JsonUtil1[A](value: A) {
+    def toJson(implicit encoder: JsonEncoders[A]): Json = encoder.encode(value)
   }
 
   def toJsonText(j: Json): String = j match {
@@ -16,5 +16,10 @@ package object json2 {
     case JsonNumberInt(number)    => number.toString
     case JsonBoolean(boolean)     => boolean.toString
     case JsonNull                 => "null"
+  }
+
+  implicit class JsonUtil2(json: Json) {
+    def as[A](implicit decoder: JsonDecoder[A]): Either[String, A] =
+      decoder.decode(json)
   }
 }
